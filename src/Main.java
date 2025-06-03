@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-   // MENUS
+    // MENUS
     public static void printMenu() {
         System.out.println("""
                 1] Manage Inventory
@@ -43,7 +43,6 @@ public class Main {
                 """);
         System.out.println("\nEnter Choice >");
         int choice = scan.nextInt();
-
     }
 
     public static void serviceMenu() {
@@ -54,7 +53,8 @@ public class Main {
                 3] Appointment Search
                 4] Customer Search
                 5] Parts Search
-                """ + "\nEnter Choice >");
+                """);
+        System.out.println("\nEnter Choice >");
         int choice = scan.nextInt();
 
     }
