@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
+   // MENUS
     public static void printMenu() {
         System.out.println("""
                 1] Manage Inventory
