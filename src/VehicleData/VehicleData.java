@@ -1,10 +1,14 @@
 package VehicleData;
 
+import java.util.Scanner;
+
+import java.util.Scanner;
+
 public class VehicleData {
 
     public enum Drivetrain {FWD, RWD, AWD}
 
-    public enum FuelType {GASOLINE, DIESEL, HYBRID, ELECTRIC}
+    public enum FuelType {GAS, DIESEL, HYBRID, ELECTRIC}
 
     public enum TransType {MANUAL, AUTOMATIC}
 
@@ -16,7 +20,6 @@ public class VehicleData {
     private String trim;
     private String vin;
     private int numDoors;
-
     private int modelYear;
 
     public VehicleData(int modelYear, String make, String model, String trim, String vin, TransType transmission, FuelType fuel, Drivetrain drivetrain, int numDoors) {
@@ -29,6 +32,62 @@ public class VehicleData {
         this.trim = trim;
         this.vin = vin;
         this.numDoors = numDoors;
+    }
+
+    public static VehicleData createVehicle() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Year > ");
+        int modelYear = scan.nextInt();
+        scan.nextLine(); // consume newline
+
+        System.out.print("Make > ");
+        String make = scan.nextLine();
+
+        System.out.print("Model > ");
+        String model = scan.nextLine();
+
+        System.out.print("Trim > ");
+        String trim = scan.nextLine();
+
+        System.out.print("Vin > ");
+        String vin = scan.nextLine();
+
+        TransType transType = null;
+        while (transType == null) {
+            System.out.print("Transmission (Manual/Auto) > ");
+            try {
+                transType = TransType.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid transmission type. Try again.");
+            }
+        }
+
+        FuelType fuelType = null;
+        while (fuelType == null) {
+            System.out.print("Fuel (Gas, Diesel, Hybrid, Electric > ");
+            try {
+                fuelType = FuelType.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid type. Try again.");
+            }
+        }
+
+        Drivetrain drivetrain = null;
+        while (drivetrain == null) {
+            System.out.print("Drivetrain (FWD, RWD, AWD) > ");
+            try {
+                drivetrain = Drivetrain.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid drivetrain. Try again.");
+            }
+        }
+
+        System.out.print("Number of doors > ");
+        int numDoors = scan.nextInt();
+        scan.nextLine(); // consume newline
+
+        return new VehicleData(modelYear, make, model, trim, vin, transType, fuelType, drivetrain, numDoors);
     }
 
     public Drivetrain getDrivetrain() {
@@ -103,10 +162,6 @@ public class VehicleData {
         this.numDoors = numDoors;
     }
 
-    public String printBasicDetails(){
-        return getModelYear() + " " + getMake() + " " + getModel() + " " + getTrim() +
-                "\nVIN: " + getVin();
-    }
 
     @Override
     public String toString() {

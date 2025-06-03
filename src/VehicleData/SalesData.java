@@ -1,12 +1,14 @@
 package VehicleData;
 
+import java.util.Scanner;
+
 public class SalesData {
     public enum TitleType {
         CLEAN, SALVAGE, REBUILT, LEMON
     }
 
     public enum Condition {
-        NEW_VEHICLE, USED_VEHICLE
+        NEW, USED
     }
 
     public enum CarType {
@@ -14,7 +16,7 @@ public class SalesData {
     }
 
     public enum LotStatus {
-        IN_TRANSIT, PREP, ON_LOT
+        TRANSIT, PREP, ON_LOT
     }
 
     private TitleType titleType;
@@ -82,6 +84,73 @@ public class SalesData {
 
     public void setSalePrice(int salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public LotStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(LotStatus status) {
+        this.status = status;
+    }
+
+
+
+    public SalesData createSale() {
+        Scanner scan = new Scanner(System.in);
+
+        TitleType title = null;
+        while (title == null) {
+            System.out.print("Title Type (CLEAN, SALVAGE, REBUILT, LEMON) > ");
+            try {
+                title = TitleType.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid title type. Please try again.");
+            }
+        }
+
+        Condition condition = null;
+        while (condition == null) {
+            System.out.print("Condition (NEW_VEHICLE, USED_VEHICLE) > ");
+            try {
+                condition = Condition.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid condition. Please try again.");
+            }
+        }
+
+        CarType carType = null;
+        while (carType == null) {
+            System.out.print("Car Type (SEDAN, WAGON, HATCHBACK, COUPE, SUV) > ");
+            try {
+                carType = CarType.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid car type. Please try again.");
+            }
+        }
+
+        System.out.print("Stock Number > ");
+        String stockNumber = scan.nextLine();
+
+        LotStatus status = null;
+        while (status == null) {
+            System.out.print("Lot Status (IN_TRANSIT, PREP, ON_LOT) > ");
+            try {
+                status = LotStatus.valueOf(scan.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid lot status. Please try again.");
+            }
+        }
+
+        System.out.print("Days on Lot > ");
+        int daysOnLot = scan.nextInt();
+        scan.nextLine(); // consume leftover newline
+
+        System.out.print("Sale Price > ");
+        int salePrice = scan.nextInt();
+        scan.nextLine(); // consume leftover newline
+
+        return new SalesData(title, condition, carType, stockNumber, status, daysOnLot, salePrice);
     }
 
     @Override
