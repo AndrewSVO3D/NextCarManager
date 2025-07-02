@@ -22,7 +22,7 @@ public class VehicleData {
     private int numDoors;
     private int modelYear;
 
-    public VehicleData(int modelYear, String make, String model, String trim, String vin, TransType transmission, FuelType fuel, Drivetrain drivetrain, int numDoors) {
+    public VehicleData(int modelYear, String make, String model, String trim, String vin, TransType transmission, FuelType fuel, Drivetrain drivetrain, int numDoors, String vin) {
         this.drivetrain = drivetrain;
         this.fuelType = fuel;
         this.transType = transmission;
@@ -32,6 +32,19 @@ public class VehicleData {
         this.trim = trim;
         this.vin = vin;
         this.numDoors = numDoors;
+        this.vin = vin;
+    }
+
+    public VehicleData(Drivetrain drivetrain, FuelType fuelType, TransType transType, String make, String model, String trim, String vin, int numDoors, int modelYear) {
+        this.drivetrain = drivetrain;
+        this.fuelType = fuelType;
+        this.transType = transType;
+        this.make = make;
+        this.model = model;
+        this.trim = trim;
+        this.vin = generateVin();
+        this.numDoors = numDoors;
+        this.modelYear = modelYear;
     }
 
     public static VehicleData createVehicle() {

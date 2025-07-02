@@ -69,78 +69,42 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        HashMap<String, Car> inventoryMap = new HashMap<>();
-
-        // Sample car
-        VehicleData vehicle = new VehicleData(
-                2024,
-                "Audi",
-                "S4",
-                "Prestige",
-                "VAG001",
-                VehicleData.TransType.AUTOMATIC,
-                VehicleData.FuelType.GAS,
-                VehicleData.Drivetrain.AWD,
-                4
+        HashMap<String, Car> carList = new HashMap<>();
+        VehicleData vehicleData = new VehicleData(
+                2020, 35000, "Volkswagen", "Golf GTI", "Autobahn",
+                VehicleData.TransType.MANUAL, VehicleData.FuelType.GAS, VehicleData.Drivetrain.FWD,
+                4, "Andy"
+        );
+        SalesData salesData = new SalesData(
+                SalesData.TitleType.CLEAN, SalesData.Condition.USED, SalesData.CarType.HATCHBACK,
+                SalesData.LotStatus.ON_LOT, 14, 30000
         );
 
-        SalesData sales = new SalesData(
-                SalesData.TitleType.CLEAN,
-                SalesData.Condition.NEW,
-                SalesData.CarType.SEDAN,
-                "0001",
-                SalesData.LotStatus.ON_LOT,
-                2,
-                70000
+        VehicleData vehicleData2 = new VehicleData(
+                2016, 65000, "Volkswagen", "Golf GTI", "SE",
+                VehicleData.TransType.AUTOMATIC, VehicleData.FuelType.GAS, VehicleData.Drivetrain.FWD,
+                4, "Jacob"
+        );
+        SalesData salesData2 = new SalesData(
+                SalesData.TitleType.CLEAN, SalesData.Condition.USED, SalesData.CarType.HATCHBACK,
+                SalesData.LotStatus.ON_LOT, 15, 30000
         );
 
-        Car car = new Car(vehicle, sales);
-        inventoryMap.put(vehicle.getVin(), car);
+        VehicleData vehicleData3 = new VehicleData(
+                2026, 5, "Volkswagen", "Tiguan", "SEL R-Line",
+                VehicleData.TransType.AUTOMATIC, VehicleData.FuelType.GAS, VehicleData.Drivetrain.AWD,
+                5, "VinPlaceholder"
+        );
+        SalesData salesData3 = new SalesData(
+                SalesData.TitleType.CLEAN, SalesData.Condition.NEW, SalesData.CarType.SUV,
+                SalesData.LotStatus.TRANSIT, 2, 42000
+        );
 
-        for (Map.Entry<String, Car> entry : inventoryMap.entrySet()) {
-            Car currentCar = entry.getValue();
-            VehicleData v = currentCar.getVehicleData();
-            SalesData s = currentCar.getSalesData();
+// Create Car objects
+        Car car = new Car(vehicleData, salesData);
+        Car car2 = new Car(vehicleData2, salesData2);
+        Car car3 = new Car(vehicleData3, salesData3);
 
-            System.out.println(v.getModelYear() + " " + v.getMake() + " " + v.getModel() +
-                    " " + v.getTrim() +
-                    "\nVIN: " + v.getVin() +
-                    "\nStock Number: " + s.getStockNumber() +
-                    "\nLot Status: " + s.getStatus().toString().toLowerCase() +
-                    "\nDays on Lot: " + s.getDaysOnLot());
-        }
 
-        // Optional menu system (uncomment to activate)
-        /*
-        Scanner scan = new Scanner(System.in);
-        int menu;
-        while (true) {
-            printMenu();
-            if (!scan.hasNextInt()) {
-                System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine();
-                continue;
-            }
-
-            menu = scan.nextInt();
-            scan.nextLine();
-
-            if (menu == 1) {
-                invMenu();
-                // VehicleData newVehicle = VehicleData.createVehicle();
-                // SalesData newSales = SalesData.createSale();
-                // Car newCar = new Car(newVehicle, newSales);
-                // inventoryMap.put(newVehicle.getVin(), newCar);
-            } else if (menu == 2) {
-                customerMenu();
-            } else if (menu == 3) {
-                employeeMenu();
-            } else if (menu == 4) {
-                serviceMenu();
-            } else {
-                System.out.println("Invalid option.");
-            }
-        }
-        */
     }
 }
